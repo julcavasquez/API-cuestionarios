@@ -16,6 +16,8 @@ const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  // fuerza IPv4
+  family: 4
 });
 
 export default db;
