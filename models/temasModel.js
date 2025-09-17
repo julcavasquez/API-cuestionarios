@@ -1,5 +1,5 @@
-const db = require('../database/conexion');
-
+//const db = require('../database/conexion');
+import db from '../database/conexion.js';
 const Temas = {
 
       getAll : async () => {
@@ -9,4 +9,4 @@ const Temas = {
 
 };
 
-module.exports = Temas;
+export default Temas;
