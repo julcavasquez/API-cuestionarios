@@ -1,6 +1,8 @@
-const Preguntas = require('../models/preguntasModel');
+//const Preguntas = require('../models/preguntasModel');
+import Preguntas from '../models/preguntasModel.js';
 
-exports.guardarPreguntas = async (req, res) => {
+const preguntasController = {
+guardarPreguntas : async (req, res) => {
   try {
     const { cuestionarioId, preguntas } = req.body;
 
@@ -27,9 +29,9 @@ exports.guardarPreguntas = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "❌ Error al guardar preguntas", error });
   }
-};
+},
 
-exports.obtenerPreguntas = async (req, res) => {
+obtenerPreguntas : async (req, res) => {
   try {
     const { id } = req.params;
     const data = await Preguntas.obtenerPorCuestionario(id);
@@ -39,4 +41,7 @@ exports.obtenerPreguntas = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "❌ Error al obtener preguntas", error });
   }
-};
+}
+}
+
+export default preguntasController

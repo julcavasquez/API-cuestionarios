@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/cuestionariosController');
-// const authMiddleware = require("../middleware/authMiddleware");
 
-router.get('/', controller.obtenerCuestionarios);
-router.get('/:id', controller.obtenerCuestionarioPorId);
-router.get('/:id/completo', controller.obtenerCuestionarioCompleto);
+import express from 'express';
+const router = express.Router();
+import cuestionariosController from '../controllers/cuestionariosController.js';
+
+router.get('/', cuestionariosController.obtenerCuestionarios);
+router.get('/:id', cuestionariosController.obtenerCuestionarioPorId);
+router.get('/:id/completo', cuestionariosController.obtenerCuestionarioCompleto);
 // router.post("/", controller.NvoUsuario);
 // router.post("/login", controller.login);
 // // Endpoint protegido → requiere token
 // router.get("/:id", authMiddleware, controller.getUsuPerfil);
-module.exports = router;
+export default router;

@@ -1,12 +1,11 @@
-const db = require('../database/conexion');
-
+import db from '../database/conexion.js';
 const Cuestionarios = {
 
       getAll : async () => {
         const [rows] = await db.query(`SELECT c.id_cuestionario,c.titulo_cuestionario,
             c.descripcion_cuestionario,
             t.nom_tema,c.estado_cuestionario FROM cuestionarios c INNER JOIN
-            temas t ON c.id_cuestionario=t.id_tema
+            temas t ON c.id_tema=t.id_tema
             WHERE c.estado_cuestionario != 'eliminado'`);
           return rows;
       },
@@ -40,5 +39,4 @@ const Cuestionarios = {
 
 
 };
-
-module.exports = Cuestionarios;
+export default Cuestionarios;

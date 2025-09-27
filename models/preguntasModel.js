@@ -1,5 +1,5 @@
-const db = require('../database/conexion');
-
+//const db = require('../database/conexion');
+import db from '../database/conexion.js';
 const Preguntas = {
 
       // Insertar una pregunta
@@ -21,5 +21,5 @@ const Preguntas = {
 
 };
 
-module.exports = Preguntas;
+export default Preguntas;
 

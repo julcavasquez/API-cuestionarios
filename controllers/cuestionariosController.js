@@ -1,32 +1,33 @@
-const Cuestionarios = require('../models/cuestionariosModel');
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
+import Cuestionarios from '../models/cuestionariosModel.js';
 
-exports.obtenerCuestionarios = async (req, res) => {
-   try {
-    const results = await Cuestionarios.getAll();
-    res.json(results);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
-exports.obtenerCuestionarioPorId = async (req, res) => {
-  const id = req.params.id;
-  try{
-        const result = await Cuestionarios.getCuestionarioId(id);
-        console.log(id);
-        if(result.length === 0){
-            return res.status(404).json({ message: 'Cuestionario no encontrado' });
-        }else{
-            res.json(result[0]);
+const cuestionariosController = {
+    obtenerCuestionarios : async (req, res) => {
+        try {
+          const results = await Cuestionarios.getAll();
+          res.json(results);
+        } catch (err) {
+          res.status(500).json({ error: err.message });
         }
-    } catch (err){
-        res.status(500).json({ error: err.message });
-    }
-};
+    },
 
-exports.obtenerCuestionarioCompleto = async (req, res) => {
+    obtenerCuestionarioPorId : async (req, res) => {
+      const id = req.params.id;
+      try{
+            const result = await Cuestionarios.getCuestionarioId(id);
+            console.log(id);
+            if(result.length === 0){
+                return res.status(404).json({ message: 'Cuestionario no encontrado' });
+            }else{
+                res.json(result[0]);
+            }
+        } catch (err){
+            res.status(500).json({ error: err.message });
+        }
+},
+    obtenerCuestionarioCompleto : async (req, res) => {
   try {
     const id = req.params.id;
     const rows = await Cuestionarios.getCuestionarioCompleto(id);
@@ -66,7 +67,11 @@ exports.obtenerCuestionarioCompleto = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}
+}
+
+export default cuestionariosController
+
 
 
 

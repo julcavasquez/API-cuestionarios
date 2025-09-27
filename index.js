@@ -9,8 +9,10 @@ const app = express();
 import express from 'express';
 import cors from 'cors';
 import temasRoute from './routes/temasRoute.js';
+import cuestionariosRoute from './routes/cuestionariosRoute.js';
+import usuariosRoute from './routes/usuariosRoute.js';
 //import { cuestionariosRoute } from './routes/cuestionariosRoute';
-//import { preguntasRoute } from './routes/preguntasRoute';
+import preguntasRoute from './routes/preguntasRoute.js';
 app.use(cors());
 app.use(express.json());
 
@@ -18,7 +20,8 @@ app.use(express.json());
 // Rutas
 
 app.use('/api/temas', temasRoute);
-//app.use('/api/cuestionarios', cuestionariosRoute);
-//app.use('/api/preguntas', preguntasRoute);
+app.use('/api/cuestionarios', cuestionariosRoute);
+app.use('/api/usuarios', usuariosRoute);
+app.use('/api/preguntas', preguntasRoute);
 
 export default app;
