@@ -4,6 +4,7 @@ const router = express.Router();
 // const authMiddleware = require("../middleware/authMiddleware");
 import TemasController from '../controllers/temasController.js';
 router.get('/', TemasController.obtenerTemas);
+router.post('/register', TemasController.RegistrarTema);
 //router.get('/:id', controller.obtenerUsuarioPorId);
 // router.post("/", controller.NvoUsuario);
 // router.post("/login", controller.login);

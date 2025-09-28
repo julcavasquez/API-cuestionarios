@@ -7,7 +7,7 @@ router.get('/', cuestionariosController.obtenerCuestionarios);
 router.get('/:id', cuestionariosController.obtenerCuestionarioPorId);
 router.get('/:id/completo', cuestionariosController.obtenerCuestionarioCompleto);
 // router.post("/", controller.NvoUsuario);
-// router.post("/login", controller.login);
+router.post("/register", cuestionariosController.RegistrarCuestionario);
 // // Endpoint protegido → requiere token
 // router.get("/:id", authMiddleware, controller.getUsuPerfil);
 export default router;

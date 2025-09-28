@@ -35,7 +35,18 @@ const Cuestionarios = {
           [id]
         );
         return rows;
-}
+      },
+
+      creaCuestionario : async (titulo_cuestionario,descripcion_cuestionario,id_tema,id_usu) => {
+            console.log("mi nombre"+titulo_cuestionario);
+            const [result] = await db.query(
+                  `INSERT INTO cuestionarios (titulo_cuestionario, descripcion_cuestionario,
+                    id_tema,id_usu) 
+                    VALUES(?,?,?,?);;`,
+                  [titulo_cuestionario,descripcion_cuestionario,id_tema,id_usu]
+            );
+            return { id_cuestionario: result.insertId};
+      },
 
 
 };

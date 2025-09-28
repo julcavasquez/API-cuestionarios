@@ -86,7 +86,7 @@ login : async (req, res) => {
     const token = jwt.sign({ id: user.id_usuario, nombres: user.nombres,apellidos: user.apellidos }, JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.status(201).json({ message: "Login exitososs", token, userId: user.id_usuario,rol:user.rol });
+    res.status(201).json({ message: "Login exitososs", token, userId: user.id_usuario,rol:user.rol,nombres:user.nombres+' '+user.apellidos });
   } catch (err) {
     console.error("Error en login:", err);
     res.status(500).json({ message: "Error interno del servidor" });

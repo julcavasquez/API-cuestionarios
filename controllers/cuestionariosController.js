@@ -67,7 +67,36 @@ const cuestionariosController = {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+},
+RegistrarCuestionario : async (req, res) => {
+   try {
+      const {titulo_cuestionario,descripcion_cuestionario,id_tema,id_usu } = req.body;
+      // 1. Encriptar password con bcrypt
+      console.log(req.body);
+      if (!titulo_cuestionario || !descripcion_cuestionario || !id_tema || !id_usu) {
+          return res.status(400).json({ message: "Todos los campos son obligatorios" });
+      }
+
+      
+      // crear usuario
+      const newTema = await Cuestionarios.creaCuestionario(
+        titulo_cuestionario,
+        descripcion_cuestionario,
+        id_tema,
+        id_usu
+      );
+
+      // No devolver el hash en la respuesta
+      return res.status(201).json({
+        message: 'Cuestionario registrado'});
+
+      
+
+  } catch (err) {
+     console.error('Error register cuestionario:', err);
+     return res.status(500).json({ message: 'Error al crear Cuestionario', error: err.message });
+  }
+},
 }
 
 export default cuestionariosController
