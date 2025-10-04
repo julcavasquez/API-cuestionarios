@@ -4,15 +4,15 @@ import Preguntas from '../models/preguntasModel.js';
 const preguntasController = {
 guardarPreguntas : async (req, res) => {
   try {
-    const { cuestionarioId, preguntas } = req.body;
-
-    if (!cuestionarioId || !preguntas || preguntas.length === 0) {
+    const { preguntas } = req.body;
+    console.log(req.body);
+    if (preguntas.length === 0) {
       return res.status(400).json({ message: "Faltan datos para guardar" });
     }
 
     for (const p of preguntas) {
       // Guardar la pregunta
-      const preguntaId = await Preguntas.crearPregunta(cuestionarioId, p.enunciado,p.feedback,p.tipo);
+      const preguntaId = await Preguntas.crearPregunta(p.id_tema, p.enunciado,p.feedback,p.tipo);
 
       // Guardar sus opciones
       for (const op of p.opciones) {
@@ -41,7 +41,60 @@ obtenerPreguntas : async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "❌ Error al obtener preguntas", error });
   }
-}
+},
+
+ listPpreguntas : async (req, res) => {
+   try {
+    const results = await Preguntas.getAll();
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+},
+
+obtenerPreguntasxConfig : async (req, res) => {
+  try {
+    const seleccion = req.body;    
+    console.log(seleccion);
+    let preguntasFinal = [];
+
+    for (const item of seleccion) {
+      const [rows] = await Preguntas.getPreguntasxConfig(item.id_tema,item.cantidad);
+       console.log([rows]);
+
+      // 🔹 Agrupar filas en estructura {pregunta, opciones:[]}
+      const preguntasMap = {};
+
+      rows.forEach(r => {
+        if (!preguntasMap[r.id_pregunta]) {
+          preguntasMap[r.id_pregunta] = {
+            id_pregunta: r.id_pregunta,
+            id_tema: r.id_tema,
+            enunciado_pregunta: r.enunciado_pregunta,
+            tipo_pregunta: r.tipo_pregunta,
+            feedback_pregunta: r.feedback_pregunta,
+            puntaje_pregunta: r.puntaje_pregunta,
+            opciones: []
+          };
+        }
+        preguntasMap[r.id_pregunta].opciones.push({
+          id_opcion: r.id_opcion,
+          texto_opcion: r.texto_opcion,
+          es_correcta: r.es_correcta
+        });
+      });
+
+      preguntasFinal = preguntasFinal.concat(Object.values(preguntasMap));
+    }
+
+    console.log(preguntasFinal);
+   
+    res.json(preguntasFinal);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+},
 }
 
 export default preguntasController

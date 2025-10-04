@@ -5,6 +5,7 @@ const router = express.Router();
 import TemasController from '../controllers/temasController.js';
 router.get('/', TemasController.obtenerTemas);
 router.post('/register', TemasController.RegistrarTema);
+router.get('/temascantidad', TemasController.obtenerTemasCantidadPreguntas);
 //router.get('/:id', controller.obtenerUsuarioPorId);
 // router.post("/", controller.NvoUsuario);
 // router.post("/login", controller.login);

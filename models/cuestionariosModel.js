@@ -11,26 +11,20 @@ const Cuestionarios = {
       },
 
       getCuestionarioId: async (id) => {
-        const [rows] = await db.query(`SELECT c.id_cuestionario,c.titulo_cuestionario,
-            c.descripcion_cuestionario,c.tiene_preguntas,
-            t.nom_tema,c.estado_cuestionario FROM cuestionarios c INNER JOIN
-            temas t ON c.id_tema=t.id_tema
-            WHERE c.id_cuestionario = ? AND c.estado_cuestionario != 'eliminado'`,[id]);
+        const [rows] = await db.query(`SELECT p.id_pregunta,p.id_tema,p.enunciado_pregunta,p.feedback_pregunta,
+			      t.nom_tema,p.estado_pregunta,p.tipo_pregunta FROM temas t INNER JOIN
+            preguntas p ON p.id_tema=t.id_tema
+            WHERE p.id_pregunta = ? AND p.estado_pregunta != 'eliminado'`,[id]);
           return rows;
       },
 
-      getCuestionarioCompleto: async (id) => {
+      getOpcionesPregunta: async (id) => {
         const [rows] = await db.query(
-          `SELECT c.id_cuestionario,c.titulo_cuestionario,
-            c.descripcion_cuestionario,
-            t.nom_tema,c.estado_cuestionario,
-            p.id_pregunta,p.enunciado_pregunta,p.feedback_pregunta,p.tipo_pregunta,
-            o.id_opcion,o.texto_opcion,o.es_correcta
-            FROM cuestionarios c 
-            INNER JOIN temas t ON c.id_tema=t.id_tema
-            INNER JOIN preguntas p ON p.id_cuestionario = c.id_cuestionario
+          `SELECT o.id_opcion,o.texto_opcion,o.es_correcta
+            FROM  temas t 
+            INNER JOIN preguntas p ON t.id_tema = p.id_tema
             INNER JOIN opciones o ON o.id_pregunta = p.id_pregunta
-            WHERE c.id_cuestionario = ? AND c.estado_cuestionario != 'eliminado'
+            WHERE p.id_pregunta = ? AND p.estado_pregunta != 'eliminado'
             ORDER BY p.id_pregunta,o.id_opcion;`,
           [id]
         );

@@ -3,10 +3,10 @@ import db from '../database/conexion.js';
 const Preguntas = {
 
       // Insertar una pregunta
-  async crearPregunta(idCuestionario, enunciado,feedback,tipo) {
+  async crearPregunta(id_tema, enunciado,feedback,tipo) {
     const [result] = await db.query(
-      "INSERT INTO preguntas (id_cuestionario,enunciado_pregunta,feedback_pregunta,tipo_pregunta) VALUES (?, ?, ?, ?)",
-      [idCuestionario, enunciado,feedback,tipo]
+      "INSERT INTO preguntas (id_tema,enunciado_pregunta,feedback_pregunta,tipo_pregunta) VALUES (?, ?, ?, ?)",
+      [id_tema, enunciado,feedback,tipo]
     );
     return result.insertId;
   },
@@ -18,6 +18,40 @@ const Preguntas = {
       [idPregunta, texto_opcion, esCorrecta]
     );
   },
+
+  //LISTAR PPREGUNTAS
+  getAll : async () => {
+        const [rows] = await db.query(`SELECT p.id_pregunta,p.id_tema,p.enunciado_pregunta,
+                    t.nom_tema,p.estado_pregunta FROM preguntas p
+                    INNER JOIN temas t ON t.id_tema = p.id_tema
+                      WHERE p.estado_pregunta <> 'eliminado'
+                      ORDER BY p.id_pregunta`);
+          return rows;
+      },
+    
+  //LISTAR PREGUNTAS DEPENDIENDO DE LA CONFIGRUACION
+  getPreguntasxConfig : async (id_tema,cantidad) => {
+        const [rows] = await db.query(`SELECT 
+  p.id_pregunta,
+  p.id_tema,
+  p.enunciado_pregunta,
+  p.tipo_pregunta,
+  p.feedback_pregunta,
+  p.puntaje_pregunta,
+  o.id_opcion,
+  o.texto_opcion,
+  o.es_correcta
+FROM (
+  SELECT * 
+  FROM preguntas 
+  WHERE id_tema = ? AND estado_pregunta !='eliminado'
+  ORDER BY RAND() 
+  LIMIT ?
+) AS p
+INNER JOIN opciones o ON p.id_pregunta = o.id_pregunta`,
+                  [id_tema, cantidad]);
+          return [rows];
+      },
 
 };
 

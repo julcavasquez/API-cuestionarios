@@ -40,6 +40,16 @@ RegistrarTema : async (req, res) => {
      return res.status(500).json({ message: 'Error al crear Tema', error: err.message });
   }
 },
+
+obtenerTemasCantidadPreguntas : async (req, res) => {
+   try {
+    const results = await Temas.getAllTemasCantidad();
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+},
+
 }
 
 export default temasController

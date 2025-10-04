@@ -5,7 +5,7 @@ import cuestionariosController from '../controllers/cuestionariosController.js';
 
 router.get('/', cuestionariosController.obtenerCuestionarios);
 router.get('/:id', cuestionariosController.obtenerCuestionarioPorId);
-router.get('/:id/completo', cuestionariosController.obtenerCuestionarioCompleto);
+router.get('/:id/opciones', cuestionariosController.obtenerCuestionarioCompleto);
 // router.post("/", controller.NvoUsuario);
 router.post("/register", cuestionariosController.RegistrarCuestionario);
 // // Endpoint protegido → requiere token

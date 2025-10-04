@@ -17,6 +17,18 @@ const Temas = {
             return { id_tema: result.insertId};
       },
 
+      getAllTemasCantidad : async () => {
+        const [rows] = await db.query(`SELECT 
+                        t.id_tema,
+                        t.nom_tema,
+                        COUNT(p.id_pregunta) AS total_preguntas
+                        FROM temas t
+                        LEFT JOIN preguntas p ON t.id_tema = p.id_tema
+                        WHERE t.estado_tema != 'eliminado' AND p.estado_pregunta != 'eliminado'
+                        GROUP BY t.id_tema, t.nom_tema`);
+          return rows;
+      },
+
 
 };
 

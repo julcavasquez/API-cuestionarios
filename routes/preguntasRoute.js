@@ -6,6 +6,8 @@ import preguntasController from '../controllers/preguntasController.js';
 
 // Guardar preguntas
 router.post('/register', preguntasController.guardarPreguntas);
+router.get('/', preguntasController.listPpreguntas);
+router.post('/configuracion', preguntasController.obtenerPreguntasxConfig);
 // router.post("/", controller.NvoUsuario);
 // router.post("/login", controller.login);
 // // Endpoint protegido → requiere token
