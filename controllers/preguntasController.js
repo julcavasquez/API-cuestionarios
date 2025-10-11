@@ -95,6 +95,30 @@ obtenerPreguntasxConfig : async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 },
+
+eliminarPregunta : async (req, res) => {
+  try {
+     const { id } = req.params;
+
+    const pregunta = await Preguntas.getById(id);
+
+    if (!pregunta) {
+      return res.status(404).json({ message: "Pregunta no encontrada" });
+    }
+
+    // Cambiar estado
+    await Preguntas.eliminar(id);
+
+    res.json({
+      message: "✅ Pregunta marcada como eliminada correctamente",
+      id_pregunta: id
+    });
+  } catch (error) {
+    console.error("❌ Error al eliminar pregunta:", error);
+    res.status(500).json({ message: "Error al eliminar pregunta" });
+  }
+},
+
 }
 
 export default preguntasController

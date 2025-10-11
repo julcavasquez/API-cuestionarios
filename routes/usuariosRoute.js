@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 // const controller = require('../controllers/temasController');
 // const authMiddleware = require("../middleware/authMiddleware");
+
 import usuariosController from '../controllers/usuariosController.js';
 router.get('/', usuariosController.obtenerUsuarios);
 router.post('/register', usuariosController.RegistrarUsuario);

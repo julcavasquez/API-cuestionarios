@@ -53,6 +53,23 @@ INNER JOIN opciones o ON p.id_pregunta = o.id_pregunta`,
           return [rows];
       },
 
+      // Obtener una pregunta específica
+  getById: async (id_pregunta) => {
+    const [rows] = await db.query(`SELECT * FROM preguntas WHERE id_pregunta = ?`, 
+      [id_pregunta]);
+    return rows[0];
+  },
+
+  // Cambiar estado a eliminado
+  eliminar: async (id_pregunta) => {
+    const [result] = await db.query(`
+      UPDATE preguntas 
+      SET estado_pregunta = 'eliminado' 
+      WHERE id_pregunta = ?
+    `, [id_pregunta]);
+    return result;
+  },
+
 };
 
 export default Preguntas;

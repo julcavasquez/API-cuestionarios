@@ -83,8 +83,8 @@ login : async (req, res) => {
     }
 
     // generar token
-    const token = jwt.sign({ id: user.id_usuario, nombres: user.nombres,apellidos: user.apellidos }, JWT_SECRET, {
-      expiresIn: "1h",
+    const token = jwt.sign({ id: user.id_usuario, nom_usu: user.email }, JWT_SECRET, {
+      expiresIn: "2h",
     });
     res.status(201).json({ message: "Login exitososs", token, userId: user.id_usuario,rol:user.rol,nombres:user.nombres+' '+user.apellidos });
   } catch (err) {

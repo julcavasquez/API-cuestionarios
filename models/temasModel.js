@@ -21,6 +21,8 @@ const Temas = {
         const [rows] = await db.query(`SELECT 
                         t.id_tema,
                         t.nom_tema,
+                        t.descripcion_tema,
+                        t.estado_tema,
                         COUNT(p.id_pregunta) AS total_preguntas
                         FROM temas t
                         LEFT JOIN preguntas p ON t.id_tema = p.id_tema
