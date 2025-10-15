@@ -9,7 +9,7 @@ export const iniciarTriviaCron = () => {
 // Ejecuta cada 30 segundos para prueba
 // cron.schedule("*/30 * * * * *", async () => { ... });
   // Ejecuta todos los días a medianoche
-  cron.schedule("15 1 * * *", async () => {
+  cron.schedule("20 1 * * *", async () => {
     try {
       console.log("🎯 Ejecutando actualización de Trivia del día...");
 
