@@ -119,6 +119,35 @@ eliminarPregunta : async (req, res) => {
   }
 },
 
+updateEnunciadoPregunta : async (req, res) => {
+  try {
+    
+    const { id } = req.params;
+    const { enunciado_pregunta } = req.body;
+
+    console.log(id);
+    console.log(enunciado_pregunta);
+    const pregunta = await Preguntas.getById(id);
+
+
+
+    if (!pregunta) {
+      return res.status(404).json({ message: "Pregunta no encontrada" });
+    }
+
+    // Cambiar estado
+    await Preguntas.updateEnunciado(id,enunciado_pregunta);
+
+    res.json({
+      message: "✅ Enunciado actualizado correctamente",
+      id_pregunta: id
+    });
+  } catch (error) {
+    console.error("❌ Error al actualziar pregunta:", error);
+    res.status(500).json({ message: "Error al actualizar pregunta" });
+  }
+},
+
 }
 
 export default preguntasController

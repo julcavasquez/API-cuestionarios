@@ -70,6 +70,16 @@ INNER JOIN opciones o ON p.id_pregunta = o.id_pregunta`,
     return result;
   },
 
+   // Cambiar estado a eliminado
+  updateEnunciado: async (id_pregunta,enunciado) => {
+    const [result] = await db.query(`
+      UPDATE preguntas 
+      SET enunciado_pregunta = ? 
+      WHERE id_pregunta = ?
+    `, [enunciado,id_pregunta]);
+    return result;
+  },
+
 };
 
 export default Preguntas;

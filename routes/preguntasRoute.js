@@ -10,6 +10,7 @@ router.get('/', preguntasController.listPpreguntas);
 router.post('/configuracion', preguntasController.obtenerPreguntasxConfig);
 // ✅ Marcar como eliminada
 router.put("/eliminar/:id", authMiddleware, preguntasController.eliminarPregunta);
+router.put("/editar/:id", authMiddleware, preguntasController.updateEnunciadoPregunta);
 // router.post("/", controller.NvoUsuario);
 // router.post("/login", controller.login);
 // // Endpoint protegido → requiere token
