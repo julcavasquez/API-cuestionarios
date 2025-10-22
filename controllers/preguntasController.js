@@ -129,8 +129,6 @@ updateEnunciadoPregunta : async (req, res) => {
     console.log(enunciado_pregunta);
     const pregunta = await Preguntas.getById(id);
 
-
-
     if (!pregunta) {
       return res.status(404).json({ message: "Pregunta no encontrada" });
     }
@@ -147,6 +145,34 @@ updateEnunciadoPregunta : async (req, res) => {
     res.status(500).json({ message: "Error al actualizar pregunta" });
   }
 },
+
+updateEnunciadoOpcion : async (req, res) => {
+  try {
+    
+    const { id } = req.params;
+    const data = req.body;
+
+    console.log(id);
+    console.log(data.texto_opcion);
+    //const pregunta = await Preguntas.getById(id);
+
+    // if (!pregunta) {
+    //   return res.status(404).json({ message: "Pregunta no encontrada" });
+    // }
+
+    // Cambiar estado
+    await Preguntas.updateTextoOpcion(id,data.texto_opcion);
+
+    res.json({
+      message: "✅ Enunciado de la Opción actualizado correctamente",
+      id_pregunta: id
+    });
+  } catch (error) {
+    console.error("❌ Error al actualziar opción:", error);
+    res.status(500).json({ message: "Error al actualizar opción" });
+  }
+},
+
 
 }
 

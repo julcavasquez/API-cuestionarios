@@ -80,6 +80,15 @@ INNER JOIN opciones o ON p.id_pregunta = o.id_pregunta`,
     return result;
   },
 
+   updateTextoOpcion: async (id_pregunta,texto_opcion) => {
+    const [result] = await db.query(`
+      UPDATE opciones 
+      SET texto_opcion = ? 
+      WHERE id_opcion = ?
+    `, [texto_opcion,id_pregunta]);
+    return result;
+  },
+
 };
 
 export default Preguntas;
