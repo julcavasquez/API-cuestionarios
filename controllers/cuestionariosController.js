@@ -72,7 +72,7 @@ RegistrarCuestionario : async (req, res) => {
    try {
       const {titulo_cuestionario,descripcion_cuestionario,id_tema,id_usu } = req.body;
       // 1. Encriptar password con bcrypt
-      console.log(req.body);
+      console.log(id_tema);
       if (!titulo_cuestionario || !descripcion_cuestionario || !id_tema || !id_usu) {
           return res.status(400).json({ message: "Todos los campos son obligatorios" });
       }
@@ -82,7 +82,7 @@ RegistrarCuestionario : async (req, res) => {
       const newTema = await Cuestionarios.creaCuestionario(
         titulo_cuestionario,
         descripcion_cuestionario,
-        id_tema,
+        id_tema[id],
         id_usu
       );
 

@@ -12,7 +12,7 @@ guardarPreguntas : async (req, res) => {
 
     for (const p of preguntas) {
       // Guardar la pregunta
-      const preguntaId = await Preguntas.crearPregunta(p.id_tema, p.enunciado,p.feedback,p.tipo);
+      const preguntaId = await Preguntas.crearPregunta(p.id_tema.id, p.enunciado,p.feedback,p.tipo);
 
       // Guardar sus opciones
       for (const op of p.opciones) {

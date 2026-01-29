@@ -4,9 +4,9 @@ import Temas from '../models/temasModel.js';
 // const jwt = require("jsonwebtoken");
 
 const temasController = {
-  obtenerTemas : async (req, res) => {
+  obtenerCompetencias : async (req, res) => {
    try {
-    const results = await Temas.getAll();
+    const results = await Temas.getAllCompetencias();
     res.json(results);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -49,6 +49,39 @@ obtenerTemasCantidadPreguntas : async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 },
+
+  obtenerDetalleCompe: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = await Temas.getAllSubCompetencias(id);
+      res.json(data);
+    } catch (error) {
+      console.error('Error obteniendo detalle de competencia:', error);
+      res.status(500).json({ message: 'Error al obtener detalle de competencia', error });
+    }
+  },
+
+   obtenerSubCompexCompe: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = await Temas.getAllSubCompetenciasxCompe(id);
+      res.json(data);
+    } catch (error) {
+      console.error('Error obteniendo Sub Competencias', error);
+      res.status(500).json({ message: 'Error al obtener Sub Competencias', error });
+    }
+  },
+
+  obtenerTemasxSubCompe: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = await Temas.getAllTemasxSubCompe(id);
+      res.json(data);
+    } catch (error) {
+      console.error('Error obteniendo Temas x Sub Competencias', error);
+      res.status(500).json({ message: 'Error al obtener Temas x Sub Competencias', error });
+    }
+  },
 
 }
 

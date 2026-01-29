@@ -21,9 +21,11 @@ const Preguntas = {
 
   //LISTAR PPREGUNTAS
   getAll : async () => {
-        const [rows] = await db.query(`SELECT p.id_pregunta,p.id_tema,p.enunciado_pregunta,
-                    t.nom_tema,p.estado_pregunta FROM preguntas p
-                    INNER JOIN temas t ON t.id_tema = p.id_tema
+        const [rows] = await db.query(`SELECT p.id_pregunta,p.id_tema,p.enunciado_pregunta,t.cod_tema,
+                    c.nom_competencia,t.descripcion_tema,p.estado_pregunta FROM competencias c
+					INNER JOIN sub_competencias sc ON sc.id_competencia = c.id_competencia
+                    INNER JOIN temas t ON t.id_sub_compe = sc.id_sub_compe
+                    INNER JOIN preguntas p ON p.id_tema = t.id_tema                   
                       WHERE p.estado_pregunta <> 'eliminado'
                       ORDER BY p.id_pregunta`);
           return rows;
