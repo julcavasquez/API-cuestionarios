@@ -58,9 +58,9 @@ const Temas = {
             sc.id_sub_compe,
             t.id_tema
             ORDER BY 
-                  CAST(SUBSTRING_INDEX(sc.cod_sub_compe, '.', 1) AS UNSIGNED),
-			CAST(SUBSTRING_INDEX(sc.cod_sub_compe, '.', -1) AS UNSIGNED),
-			CAST(SUBSTRING_INDEX(t.cod_tema, '.', -1) AS UNSIGNED);`, [id_competencia]);
+                  CAST(SUBSTRING_INDEX(t.cod_tema, '.', 1) AS UNSIGNED),
+                  CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(t.cod_tema, '.', 2), '.', -1) AS UNSIGNED),
+                  CAST(SUBSTRING_INDEX(t.cod_tema, '.', -1) AS UNSIGNED);`, [id_competencia]);
       return rows;
       },
 
